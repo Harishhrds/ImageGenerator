@@ -1,13 +1,15 @@
 import streamlit as st
 import openai
 import requests
+from dotenv import load_dotenv
+import os
 
-
+load_dotenv()
 st.title("Text To Image Generator (DALL·E)")
-api_key=st.sidebar.text_input("Enter OpenAI API Key")
-openai.api_key = api_key
+# api_key=st.sidebar.text_input("Enter OpenAI API Key")
+openai.api_key = os.getenv("OPENAI_API_KEY")
 prompt = st.text_input("Enter your description")
-if prompt and api_key!="":
+if prompt:
     with st.spinner("Generating..."):
      response = openai.images.generate(
                 model = "dall-e-3",
